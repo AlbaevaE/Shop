@@ -4,19 +4,19 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.*;
-@XmlRootElement(name="season")
+@XmlRootElement(name="color")
 @XmlAccessorType(XmlAccessType.FIELD)
 
-public class Season {
+public class Color {
     int id;
-    String season;
+    Color color;
 
-    public Season() {
+    public Color() {
     }
 
-    public Season(int id, String season) {
+    public Color(int id, Color color) {
         this.id = id;
-        this.season = season;
+        this.color = color;
     }
 
     public int getId() {
@@ -27,11 +27,11 @@ public class Season {
         this.id = id;
     }
 
-    public String getSeason() {
-        return season;
+    public Color getColor() {
+        return color;
     }
 
-    public void setSeason(String season) {
-        this.season = season;
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
