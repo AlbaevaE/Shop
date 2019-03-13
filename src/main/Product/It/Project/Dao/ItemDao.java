@@ -1,5 +1,4 @@
 package It.Project.Dao;
 
-public class SizeDao {
-
+public class ItemDao {
 }

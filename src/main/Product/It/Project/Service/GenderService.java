@@ -1,4 +1,4 @@
 package It.Project.Service;
 
-public class ToWhomService {
+public class GenderService {
 }

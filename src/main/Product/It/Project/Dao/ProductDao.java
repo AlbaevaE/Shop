@@ -24,7 +24,7 @@ public class ProductDao {
     }
 
     public int getProductCount() {
-        String SQL = "SELECT count(*) FROM product";
+        String SQL = "SELECT count(*) FROM brand";
         int count = 0;
         try (Connection conn = connect();
              Statement stmt = conn.createStatement();
