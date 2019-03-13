@@ -17,13 +17,13 @@ public class Item {
     Season season;
     int price;
     Shop shop;
-    ToWhom toWhom;
+    Gender gender;
 
     public Item() {
     }
 
-    public Item(int id, String name, TypeProduct typeProduct, Brand brand, Color color, Size size,
-                Season season, int price, Shop shop, ToWhom toWhom) {
+    public Item(int id, String name, TypeProduct typeProduct, Brand brand,
+                Color color, Size size, Season season, int price, Shop shop, Gender gender) {
         this.id = id;
         this.name = name;
         this.typeProduct = typeProduct;
@@ -33,7 +33,7 @@ public class Item {
         this.season = season;
         this.price = price;
         this.shop = shop;
-        this.toWhom = toWhom;
+        this.gender = gender;
     }
 
     public int getId() {
@@ -108,11 +108,11 @@ public class Item {
         this.shop = shop;
     }
 
-    public ToWhom getToWhom() {
-        return toWhom;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setToWhom(ToWhom toWhom) {
-        this.toWhom = toWhom;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }

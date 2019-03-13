@@ -11,15 +11,15 @@ public class TypeProduct {
 
     int id;
     String name;
-    PreType preType;
+    String parentTypeId;
 
     public TypeProduct() {
     }
 
-    public TypeProduct(int id, String name, PreType preType) {
+    public TypeProduct(int id, String name, String parentTypeId) {
         this.id = id;
         this.name = name;
-        this.preType = preType;
+        this.parentTypeId = parentTypeId;
     }
 
     public int getId() {
@@ -38,11 +38,11 @@ public class TypeProduct {
         this.name = name;
     }
 
-    public PreType getPreType() {
-        return preType;
+    public String getParentTypeId() {
+        return parentTypeId;
     }
 
-    public void setPreType(PreType preType) {
-        this.preType = preType;
+    public void setParentTypeId(String parentTypeId) {
+        this.parentTypeId = parentTypeId;
     }
 }
