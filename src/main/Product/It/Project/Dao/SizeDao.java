@@ -2,7 +2,7 @@ package It.Project.Dao;
 
 import java.sql.*;
 
-public class SizeDao {
+public class SizeDao extends ProductDao{
     private final String url = "jdbc:postgresql://localhost:5432/postgres";
     private final String url1 = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
     private final String user = "gruppa11";
