@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class Size {
 
-    int id;
-    String size;
+    public int id;
+    public String size;
 
     public Size() {
     }

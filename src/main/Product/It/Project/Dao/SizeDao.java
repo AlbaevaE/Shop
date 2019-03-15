@@ -1,8 +1,10 @@
 package It.Project.Dao;
 
+import It.Project.Model.Size;
+
 import java.sql.*;
 
-public class SizeDao extends ProductDao{
+public class SizeDao extends ProductDao {
     private final String url = "jdbc:postgresql://localhost:5432/postgres";
     private final String url1 = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
     private final String user = "gruppa11";
@@ -23,19 +25,42 @@ public class SizeDao extends ProductDao{
     }
 
     public int getSize(int id) {
-        String SQL = "Select * from sizes";
+        String SQL = "Select id from sizes";
+        int Id = 0;
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(SQL);{
+            ResultSet rs = stmt.executeQuery(SQL);
+            {
                 rs.next();
             }
 
+        } catch (SQLException ex) {
+            ex.getMessage();
         }
-        catch (SQLException ex){
-                 ex.getMessage();
-        }
-        return id;
+        return Id;
     }
+
+    public int getAllSizes(Size sizes) {
+        String SQL = "select * from sizes";
+        int Id = 0;
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+            stmt.setInt(1, sizes.id);
+            stmt.setString(2, sizes.size);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery(SQL);
+            {
+                while (rs.next()) {
+                    rs.getInt("id");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return Id;
+
+    }
+
 }
