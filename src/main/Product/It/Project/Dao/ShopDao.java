@@ -1,5 +1,7 @@
 package It.Project.Dao;
 
+import It.Project.Model.Shop;
+
 import java.sql.*;
 
 public class ShopDao extends ProductDao {
@@ -22,20 +24,83 @@ public class ShopDao extends ProductDao {
         return conn;
     }
 
-    public String getShopInfo(String info){
-        String SQL = "Select ";
+    public String getShopInfo(String info) {
+        String SQL = "Select id from shop";
+        String v = "";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)) {
             stmt.setString(1, info);
             stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(SQL);{
+            ResultSet rs = stmt.executeQuery(SQL);
+            {
                 rs.next();
             }
 
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return info;
+    }
+
+    public String getAllShop(String info) {
+        String SQL = "Select * from shop";
+        String v = "";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+            stmt.setString(1, info);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery(SQL);
+            {
+                rs.next();
+            }
+
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return info;
+    }
+
+    public String addShop(Shop shop) {
+        String SQL = "insert into shop (id,name,contact) values (?,?,?)";
+        String s = "";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+            stmt.setInt(1, shop.id);
+            stmt.setString(2, shop.name);
+            stmt.setString(3, String.valueOf(shop.contact));
+            stmt.executeQuery();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return s;
+    }
+
+    public String updateShop(Shop shop) {
+        String SQL = "Update shop set name = ? where id = ?";
+        String s = "";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+            stmt.setInt(1, shop.id);
+            stmt.setString(2, shop.name);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return s;
+
+    }
+
+    public String deleteShop(Shop shop){
+        String SQL = "Delete from shop where id = ?";
+        String s = "";
+        try(Connection conn = connect();
+        PreparedStatement stmt = conn.prepareStatement(SQL)){
+            stmt.setInt(1,shop.id);
+            stmt.executeUpdate();
         }
         catch (SQLException ex){
             ex.getMessage();
         }
-        return info;
+        return s;
     }
 }

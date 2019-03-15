@@ -8,9 +8,9 @@ import java.awt.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class Shop {
-    int id;
-    String name;
-    Contact contact;
+    public int id;
+    public String name;
+    public Contact contact;
 
     public Shop() {
     }

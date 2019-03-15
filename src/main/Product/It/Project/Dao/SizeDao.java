@@ -23,13 +23,16 @@ public class SizeDao extends ProductDao{
     }
 
     public int getSize(int id) {
-        String SQL = "Select * from sizes";
+        String SQL = "Select id from sizes";
+        int Id =0;
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
             ResultSet rs = stmt.executeQuery(SQL);{
-                rs.next();
+               while (rs.next()){
+                   Id = rs.getInt("id");
+               }
             }
 
         }
@@ -38,4 +41,23 @@ public class SizeDao extends ProductDao{
         }
         return id;
     }
+
+    public int getAllSizes(int id){
+        String SQL = "Select * from sizes ";
+        int Id = 0;
+        try(Connection conn  = connect();
+        PreparedStatement stmt = conn.prepareStatement(SQL)){
+            stmt.setInt(1,id);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery();{
+                while (rs.next()){
+                    Id = rs.getInt("id");
+                }
+            }
+        }catch (SQLException ex){
+            ex.getMessage();
+        }
+        return id;
+    }
+
 }
