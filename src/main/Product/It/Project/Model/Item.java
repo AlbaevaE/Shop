@@ -3,14 +3,14 @@ package It.Project.Model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.awt.*;
+
 @XmlRootElement(name="item")
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class Item {
     int id;
     String name;
-    TypeProduct typeProduct;
+    Type type;
     Brand brand;
     Color color;
     Size size;
@@ -22,11 +22,11 @@ public class Item {
     public Item() {
     }
 
-    public Item(int id, String name, TypeProduct typeProduct, Brand brand,
+    public Item(int id, String name, Type type, Brand brand,
                 Color color, Size size, Season season, int price, Shop shop, Gender gender) {
         this.id = id;
         this.name = name;
-        this.typeProduct = typeProduct;
+        this.type = type;
         this.brand = brand;
         this.color = color;
         this.size = size;
@@ -52,12 +52,12 @@ public class Item {
         this.name = name;
     }
 
-    public TypeProduct getTypeProduct() {
-        return typeProduct;
+    public Type getType() {
+        return type;
     }
 
-    public void setTypeProduct(TypeProduct typeProduct) {
-        this.typeProduct = typeProduct;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Brand getBrand() {
