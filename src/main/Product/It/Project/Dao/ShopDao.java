@@ -1,18 +1,21 @@
 package It.Project.Dao;
 
+import It.Project.Model.Shop;
+
 import java.sql.*;
 
 public class ShopDao extends ProductDao {
-    private final String url = "jdbc:postgresql://localhost:5432/postgres";
-    private final String url1 = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
-    private final String user = "gruppa11";
-    private final String password = "1e23qwe34";
+    private static final String url = "jdbc:postgresql://138.68.52.248:5432/gr11";
+    private static final String user = "gruppa11";
+    private static final String password = "1e23qwe34";
 
     public Connection connect() {
         Connection conn = null;
+
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(url, user, password);
+
             System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -22,20 +25,27 @@ public class ShopDao extends ProductDao {
         return conn;
     }
 
-    public String getShopInfo(String info){
-        String SQL = "Select ";
+    public Shop getShopInfo(String info) {
+        String SQL = "select name,phone_number,address from shop where name=?;";
+        Shop shop = new Shop();
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)) {
             stmt.setString(1, info);
-            stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(SQL);{
-                rs.next();
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                shop.setName(name);
+                shop.setPhoneNumber(rs.getString("phone_number"));
+                shop.setAddress(rs.getString("address"));
             }
 
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
-        catch (SQLException ex){
-            ex.getMessage();
-        }
-        return info;
+        System.out.println(shop);
+        return shop;
     }
 }
