@@ -4,19 +4,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.*;
-@XmlRootElement(name="typeProduct")
-@XmlAccessorType(XmlAccessType.FIELD)
+import java.sql.ResultSet;
 
-public class TypeProduct {
+@XmlRootElement(name="type")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Type {
 
     int id;
     String name;
     String parentTypeId;
 
-    public TypeProduct() {
+    public Type() {
     }
 
-    public TypeProduct(int id, String name, String parentTypeId) {
+    public Type(int id, String name, String parentTypeId) {
         this.id = id;
         this.name = name;
         this.parentTypeId = parentTypeId;
@@ -44,5 +45,15 @@ public class TypeProduct {
 
     public void setParentTypeId(String parentTypeId) {
         this.parentTypeId = parentTypeId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", parentTypeId='" + parentTypeId + '\'' +
+                '}';
     }
 }
