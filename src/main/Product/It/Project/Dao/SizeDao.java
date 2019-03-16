@@ -1,14 +1,16 @@
 package It.Project.Dao;
 
+import It.Project.Model.Color;
 import It.Project.Model.Size;
 
 import java.sql.*;
 
 public class SizeDao extends ProductDao {
-    private final String url = "jdbc:postgresql://localhost:5432/postgres";
-    private final String url1 = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
-    private final String user = "gruppa11";
-    private final String password = "1e23qwe34";
+
+    private static final String url = "jdbc:postgresql://138.68.52.248:5432/gr11";
+    private static final String user = "gruppa11";
+    private static final String password = "1e23qwe34";
+
 
     public Connection connect() {
         Connection conn = null;
@@ -24,25 +26,28 @@ public class SizeDao extends ProductDao {
         return conn;
     }
 
-    public int getSize(int id) {
-        String SQL = "Select id from sizes";
-        int Id = 0;
-        try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(SQL);
-            {
-                rs.next();
-            }
+    public Size getSize(int id) {
+        String SQL = "Select id, name from sizes where id = ?;";
+        Size size = new Size();
 
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setInt(1, id);
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                size.setId(rs.getInt("id"));
+                size.setSize(rs.getString("name"));
+            }
         } catch (SQLException ex) {
-            ex.getMessage();
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
         }
-        return Id;
+        return size;
     }
 
-    public int getAllSizes(Size sizes) {
+    public  int getAllSizes(Size sizes) {
         String SQL = "select * from sizes";
         int Id = 0;
         try (Connection conn = connect();
@@ -52,7 +57,7 @@ public class SizeDao extends ProductDao {
             stmt.executeUpdate();
             ResultSet rs = stmt.executeQuery(SQL);
             {
-                while (rs.next()) {
+                while(rs.next()) {
                     rs.getInt("id");
                 }
             }
