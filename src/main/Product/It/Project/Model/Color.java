@@ -9,12 +9,12 @@ import java.awt.*;
 
 public class Color {
     int id;
-    Color color;
+    String color;
 
     public Color() {
     }
 
-    public Color(int id, Color color) {
+    public Color(int id, String color) {
         this.id = id;
         this.color = color;
     }
@@ -27,11 +27,19 @@ public class Color {
         this.id = id;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(String color) {
         this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "Color{" +
+                "id=" + id +
+                ", color='" + color + '\'' +
+                '}';
     }
 }
