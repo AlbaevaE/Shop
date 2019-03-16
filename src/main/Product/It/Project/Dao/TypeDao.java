@@ -28,7 +28,7 @@ public class TypeDao {
     }
 
     public Type getType(int id) {
-        String SQL = "Select id , name , type_product_id from type_product where id = ?;";
+        String SQL = "Select id , name , parent_type_id from type_product where id = ?;";
 
         Type type = new Type();
         try (Connection conn = connect();
