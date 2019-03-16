@@ -1,5 +1,12 @@
 package It.Project.Model;
 
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="color")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Gender {
     int id;
     String gender;
@@ -26,5 +33,13 @@ public class Gender {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "Gender{" +
+                "id=" + id +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }
