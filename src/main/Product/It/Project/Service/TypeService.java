@@ -38,11 +38,16 @@ public class TypeService {
 
     @DELETE
     @Path("{deleteId}")
-    @Produces
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public boolean deleteType(@PathParam("deleteID") Integer deleteId){
         System.out.printf("Deleting type");
         TypeDao typeDao = new TypeDao();
         typeDao.deleteType(deleteId);
         return true;
     }
+
+
+
+
+
 }
