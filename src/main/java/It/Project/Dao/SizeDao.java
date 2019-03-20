@@ -3,6 +3,8 @@ package It.Project.Dao;
 import It.Project.Model.Size;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SizeDao extends ProductDao {
 
@@ -23,6 +25,22 @@ public class SizeDao extends ProductDao {
             e.printStackTrace();
         }
         return conn;
+    }
+
+    public List<Size> getAllSizes(){
+        String SQL = "select * from sizes";
+        List<Size>size = new ArrayList<>();
+        try(Connection conn = connect();
+        PreparedStatement stmt = conn.prepareStatement(SQL)){
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                size.add(new Size(rs.getInt("id"),rs.getString("name")));
+            }
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return size;
     }
 
     public Size getSize(int id) {
@@ -46,84 +64,71 @@ public class SizeDao extends ProductDao {
         return size;
     }
 
-    public Size getSizesName(String sizes) {
-        String SQL = "select name from sizes where name = ?";
-        Size size = new Size();
-        try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setString(1, sizes);
-            ResultSet rs = stmt.executeQuery(SQL);
-            {
-                while (rs.next()) {
-                    String name = rs.getString("name");
-                    size.setSize(name);
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        System.out.println(size);
-        return size;
-
-    }
+//    public Size getSizesName(String sizes) {
+//        String SQL = "select name from sizes where id = ?";
+//        Size size = new Size();
+//        try (Connection conn = connect();
+//             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+//            stmt.setString(1, sizes);
+//            ResultSet rs = stmt.executeQuery(SQL);
+//            {
+//                while (rs.next()) {
+//                    String name = rs.getString("name");
+//                    size.setSize(name);
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        System.out.println(size);
+//        return size;
+//
+//    }
 
     public Size updateSize(Size name) {
-        String SQL = "update name from sizes where name = ?";
-        Size size1 = new Size();
+        String SQL = "update name set name = ? where id = ?";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setString(1, name.size);
+            stmt.setString(1, name.getSize());
+            stmt.setInt(2, name.getId());
+            stmt.execute();
             ResultSet rs = stmt.executeQuery(SQL);
-            {
-                while (rs.next()) {
-                    String name1 = rs.getString("name");
-                    size1.setSize(name1);
-                }
-            }
+            rs.next();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        System.out.println(size1);
-        return size1;
+        return name;
     }
 
-    public boolean deleteSize(Size sizes) {
-        String SQL = "delete id from sizes where id = ?";
-        Size size = new Size();
+    public boolean deleteSize(int id) {
+        String SQL = "delete  from sizes where id = ?";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setInt(1, sizes.id);
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery(SQL);
-            {
-                while (rs.next()) {
-                    int Id = rs.getInt(1);
-                    size.setId(Id);
-                }
-            }
+            rs.next();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            return false;
         }
-        System.out.println(size);
+
         return true;
 
     }
 
-    public boolean addSize(String size){
+    public boolean addSize(Size size) {
         String SQL = "insert into sizes (name) values (?)";
-        Size sizes = new Size();
-        try(Connection conn = connect();
-        PreparedStatement stmt = conn.prepareStatement(SQL)){
-            stmt.setString(1,size);
-            ResultSet rs = stmt.executeQuery(SQL);{
-                while(rs.next()){
-                    String name = rs.getString("name");
-
-                }
-            }
-        }catch (SQLException ex){
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+            stmt.setString(1, size.getSize());
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery(SQL);
+            rs.next();
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            return false;
         }
-        System.out.println(sizes);
+
         return true;
     }
 
