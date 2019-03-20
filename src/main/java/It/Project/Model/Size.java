@@ -3,7 +3,7 @@ package It.Project.Model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.awt.*;
+
 @XmlRootElement(name="size")
 @XmlAccessorType(XmlAccessType.FIELD)
 
@@ -34,6 +34,15 @@ public class Size {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Size{" +
+                "id=" + id +
+                ", size='" + size + '\'' +
+                '}';
     }
 }
 

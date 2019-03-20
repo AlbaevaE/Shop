@@ -39,12 +39,13 @@ public class SizeDao extends ProductDao {
             }
         }catch (SQLException ex){
             System.out.println(ex.getMessage());
+            System.out.println("Error getAllSizes");
         }
         return size;
     }
 
     public Size getSize(int id) {
-        String SQL = "Select id, name from sizes where id = ?;";
+        String SQL = "Select id, name from sizes where id = ?";
         Size size = new Size();
 
         try (Connection conn = connect();
@@ -59,7 +60,7 @@ public class SizeDao extends ProductDao {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            System.out.println("Error");
+            System.out.println("Error getSize");
         }
         return size;
     }
@@ -96,6 +97,7 @@ public class SizeDao extends ProductDao {
             rs.next();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            System.out.println("Error updateSize");
         }
         return name;
     }
@@ -109,6 +111,7 @@ public class SizeDao extends ProductDao {
             rs.next();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            System.out.println("Error deleteSize");
             return false;
         }
 
@@ -126,6 +129,7 @@ public class SizeDao extends ProductDao {
             rs.next();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            System.out.println("Error addSize");
             return false;
         }
 

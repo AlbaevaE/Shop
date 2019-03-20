@@ -6,6 +6,7 @@ import It.Project.Model.Size;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 
 @Path("/size")
@@ -20,22 +21,30 @@ public class SizeService {
         return size;
     }
 
-
     @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Size getSizeName_JSON(@PathParam("sizeName") String allSize) {
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public List<Size>getAllSizes(){
         SizeDao sizeDao = new SizeDao();
-        Size size = sizeDao.getSizesName(allSize);
-        return size;
-
+        List<Size>sizes = sizeDao.getAllSizes();
+        return sizes;
     }
 
+
+//    @GET
+//    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//    public Size getSizeName_JSON(@PathParam("sizeName") String allSize) {
+//        SizeDao sizeDao = new SizeDao();
+//        Size size = sizeDao.getSizesName(allSize);
+//        return size;
+//
+//    }
+
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Size updateSize_JSON(@PathParam("size") Size size) {
+    public Size updateSize_JSON(Size size) {
         SizeDao sizeDao = new SizeDao();
-        Size size1 = sizeDao.updateSize(size);
-        return size1;
+        sizeDao.updateSize(size);
+        return size;
     }
 
     @DELETE
@@ -51,7 +60,7 @@ public class SizeService {
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Size addSize_Json(Size sizes) {
         SizeDao sizeDao = new SizeDao();
-        Size size = sizeDao.addSize(sizes);
-        return size;
+       sizeDao.addSize(sizes);
+       return sizes;
     }
 }
