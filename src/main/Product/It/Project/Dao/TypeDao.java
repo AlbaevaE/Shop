@@ -1,6 +1,7 @@
 package It.Project.Dao;
 
 import java.sql.*;
+import java.util.List;
 
 import It.Project.Model.Type;
 
@@ -47,6 +48,10 @@ public class TypeDao {
             System.out.println("Error");
         }
         return type;
+    }
+
+    public List<Type> getAllType(){
+
     }
 
     public Type addType(Type type){
@@ -100,4 +105,6 @@ public class TypeDao {
         }
         return true;
     }
+
+
 }

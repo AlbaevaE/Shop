@@ -1,6 +1,7 @@
 package It.Project.Service;
 
 
+
 import It.Project.Dao.TypeDao;
 import It.Project.Model.Type;
 
@@ -39,14 +40,12 @@ public class TypeService {
     @DELETE
     @Path("{deleteId}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public boolean deleteType(@PathParam("deleteID") Integer deleteId){
+    public boolean deleteType(@PathParam("deleteId") Integer deleteId){
         System.out.printf("Deleting type");
         TypeDao typeDao = new TypeDao();
         typeDao.deleteType(deleteId);
         return true;
     }
-
-
 
 
 
