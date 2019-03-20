@@ -8,6 +8,7 @@ import It.Project.Model.Type;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/type")
 public class TypeService {
@@ -20,6 +21,16 @@ public class TypeService {
         Type type = typeDao.getType(typeId);
         return type;
     }
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public List<Type> getAllType_JSON(){
+        System.out.println("Getting all types");
+        TypeDao typeDao = new TypeDao();
+        List<Type> types = typeDao.getAllType();
+        return types;
+    }
+
 
     @POST
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})

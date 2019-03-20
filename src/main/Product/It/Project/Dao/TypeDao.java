@@ -1,8 +1,10 @@
 package It.Project.Dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
+import It.Project.Model.Gender;
 import It.Project.Model.Type;
 
 
@@ -51,7 +53,21 @@ public class TypeDao {
     }
 
     public List<Type> getAllType(){
-
+        String SQL = "Select * from type_product;";
+        List<Type> types = new ArrayList<>();
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                types.add(new Type(rs.getInt("id"),rs.getString("name")));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
+        }
+        return types;
     }
 
     public Type addType(Type type){
