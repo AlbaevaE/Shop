@@ -1,12 +1,14 @@
 package It.Project.Dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import It.Project.Model.Type;
 
 
 public class TypeDao {
-    // private final String url = "jdbc:postgresql://localhost:5432/postgres";
     private static final String url = "jdbc:postgresql://138.68.52.248:5432/gr11";
     private static final String user = "gruppa11";
     private static final String password = "1e23qwe34";
@@ -49,4 +51,76 @@ public class TypeDao {
         }
         return type;
     }
+
+    public List<Type> getAllType(){
+        String SQL = "Select * from type_product;";
+        List<Type> types = new ArrayList<>();
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                types.add(new Type(rs.getInt("id"),rs.getString("name")));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
+        }
+        return types;
+    }
+
+    public Type addType(Type type){
+        String SQL = "Insert into type_product(name) values(?);";
+
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, type.getName());
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
+        }
+        return type;
+    }
+
+    public Type updateType(Type type){
+        String SQL = "Update type_product set name=? where id = ?;";
+
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1,type.getName());
+            stmt.setInt(2, type.getId());
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
+        }
+        return type;
+    }
+
+    public boolean deleteType(int id){
+        String SQL = "Delete from type_product where id=?;";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setInt(1, id);
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
+            return false;
+        }
+        return true;
+    }
+
+
 }
