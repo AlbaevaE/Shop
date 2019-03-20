@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import It.Project.Model.Gender;
+
 import It.Project.Model.Type;
 
 
