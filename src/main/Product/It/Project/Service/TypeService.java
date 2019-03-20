@@ -42,6 +42,7 @@ public class TypeService {
     public boolean deleteType(@PathParam("deleteID") Integer deleteId){
         System.out.printf("Deleting type");
         TypeDao typeDao = new TypeDao();
-        return typeDao.deleteType(deleteId);
+        typeDao.deleteType(deleteId);
+        return true;
     }
 }
