@@ -41,6 +41,7 @@ public class SizeService {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON})
     public Size updateSize_JSON(Size size) {
         SizeDao sizeDao = new SizeDao();
         sizeDao.updateSize(size);
