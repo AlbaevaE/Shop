@@ -1,6 +1,10 @@
 package It.Project.Dao;
 
+import It.Project.Model.Shop;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopDao {
     private final String url = "jdbc:postgresql://localhost:5432/postgres";
@@ -22,20 +26,81 @@ public class ShopDao {
         return conn;
     }
 
-    public String getShopInfo(String info){
-        String SQL = "Select ";
+    public boolean registerShop(Shop reg) {
+        String SQL = "insert into shop (name, passwords, phone_number, email, address) values (?,?,?,?,?);";
         try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setString(1, info);
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, reg.getName());
+            stmt.setString(2, reg.getPassword());
+            stmt.setString(3, reg.getNumber());
+            stmt.setString(4, reg.getEmail());
+            stmt.setString(5, reg.getAdress());
             stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(SQL);{
-                rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean authorizeShop(Shop reg) {
+        String SQL = "select id from shop where login = ?";
+        int id = -1;
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, reg.getName());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next())
+                id = rs.getInt("id");
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        if (id == -1) {
+            return false;
+        }
+
+        return checkLoginAndPassword(reg, id);
+    }
+
+    public boolean checkLoginAndPassword(Shop reg, int shopId) {
+        String SQL = "select count(*) as cnt from shop where login = ? and passwords = ?";
+        int count = 0;
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, reg.getName());
+            stmt.setString(2, reg.getPassword());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("cnt");
             }
 
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            // Write Fail to Log
+            return false;
         }
-        catch (SQLException ex){
-            ex.getMessage();
+        return true;
+    }
+    public List<Shop> getAllShop () {
+        String SQL = "Select * from shop;";
+        List<Shop> shops = new ArrayList<>();
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                shops.add(new Shop (rs.getInt("id"),rs.getString("login"), rs.getString("passwords")));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
         }
-        return info;
+        return shops;
     }
 }
