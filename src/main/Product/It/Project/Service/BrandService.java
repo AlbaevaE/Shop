@@ -11,19 +11,21 @@ import java.util.List;
 public class BrandService {
     @GET
     @Path("/{brandId}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Brand getBrand_JSON(@PathParam("brandId") Integer brandId) {
-        System.out.println("Getting Type");
+        System.out.println("Getting Brand");
         BrandDao brandDao = new BrandDao();
         return brandDao.getBrand(brandId);
     }
 
-        @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Brand > getAllBrands_JSON() {
+    @GET
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public List<Brand> getAllBrands_JSON() {
         BrandDao brandDao = new BrandDao();
-            return (List<Brand>) brandDao.getAllBrands();
+        List<Brand> brands = brandDao.getAllBrands();
+        return brands;
     }
+
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Brand addBrand_Json(Brand brand) {
@@ -40,9 +42,10 @@ public class BrandService {
         brandDao.deleteBrands(brandId);
         return true;
     }
+
     @PUT
-    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-    public Brand updateBrand_JSON(Brand brand){
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public Brand updateBrand_JSON(Brand brand) {
         System.out.println("Updating brand");
         BrandDao brandDao = new BrandDao();
         brandDao.updateBrands(brand);

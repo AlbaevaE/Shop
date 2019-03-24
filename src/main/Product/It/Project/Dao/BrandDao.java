@@ -67,14 +67,14 @@ public class BrandDao {
     }
 
     public void addBrand(Brand brand) {
-        String SQL = "insert into brand (id, name)";
+        String SQL = "insert into brand (name) values(?)";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)
         ) {
-            stmt.setInt(1, brand.getId());
-            stmt.setString(2, brand.getName());
+            stmt.setString(1, brand.getName());
             stmt.executeUpdate();
-
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

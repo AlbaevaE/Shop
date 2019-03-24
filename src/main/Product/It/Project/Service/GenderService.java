@@ -30,7 +30,7 @@ public class GenderService {
     }
 
     @PUT
-    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Gender updateGender_JSON(Gender gender){
         System.out.println("Updating gender");
         GenderDao genderDao = new GenderDao();
@@ -49,7 +49,7 @@ public class GenderService {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public List<Gender> getAllGenders(){
         System.out.println("Getting all genders");
         GenderDao genderDao = new GenderDao();
