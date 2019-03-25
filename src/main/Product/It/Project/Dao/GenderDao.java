@@ -14,7 +14,6 @@ public class GenderDao {
 
     public Connection connect() {
         Connection conn = null;
-
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(url, user, password);
