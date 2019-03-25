@@ -45,8 +45,8 @@ public class SeasonService {
 
     @DELETE
     @Path("/{seasonId}")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public boolean deleteSeason_JSON(@PathParam("seasonId")Integer seasonId){
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean deleteSeason_JSON(@PathParam("seasonId") Integer seasonId) {
         SeasonDao seasonDao = new SeasonDao();
         seasonDao.deleteSeason(seasonId);
         return true;
