@@ -37,7 +37,7 @@ public class ShopDao {
             stmt.setInt(1, id);
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 shop.setId(rs.getInt("id"));
                 shop.setName(rs.getString("name"));
                 shop.setPassword(rs.getString("password"));
