@@ -5,11 +5,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="color")
+@XmlRootElement(name = "color")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Gender {
-    int id;
-    String gender;
+    private int id;
+    private String gender;
 
     public Gender() {
     }

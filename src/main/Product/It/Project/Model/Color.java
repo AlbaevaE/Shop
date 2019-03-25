@@ -4,12 +4,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.*;
-@XmlRootElement(name="color")
+
+@XmlRootElement(name = "color")
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class Color {
-    int id;
-    String color;
+    private int id;
+    private String color;
 
     public Color() {
     }

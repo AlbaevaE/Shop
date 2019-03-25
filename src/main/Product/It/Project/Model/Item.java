@@ -4,20 +4,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="item")
+@XmlRootElement(name = "item")
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class Item {
-    int id;
-    String name;
-    Type type;
-    Brand brand;
-    Color color;
-    Size size;
-    Season season;
-    int price;
-    Shop shop;
-    Gender gender;
+    private int id;
+    private String name;
+    private Type type;
+    private Brand brand;
+    private Color color;
+    private Size size;
+    private Season season;
+    private int price;
+    private Shop shop;
+    private Gender gender;
 
     public Item() {
     }

@@ -4,12 +4,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.*;
-@XmlRootElement(name="brand")
+
+@XmlRootElement(name = "brand")
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class Brand {
-    int id;
-    String name;
+    private int id;
+    private String name;
 
     public Brand() {
     }

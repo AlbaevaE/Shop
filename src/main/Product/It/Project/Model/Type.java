@@ -6,13 +6,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.*;
 import java.sql.ResultSet;
 
-@XmlRootElement(name="type")
+@XmlRootElement(name = "type")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Type {
 
-    int id;
-    String name;
-    String parentTypeId;
+    private int id;
+    private String name;
+    private String parentTypeId;
 
     public Type() {
     }
