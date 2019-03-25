@@ -11,6 +11,10 @@ public class Order {
         this.clientId = clientId;
     }
 
+    public Order() {
+
+    }
+
     public int getId() {
         return id;
     }
