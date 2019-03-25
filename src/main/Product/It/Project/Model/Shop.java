@@ -13,6 +13,7 @@ public class Shop {
     String number;
     String adress;
     String email;
+    String newPassword;
 
     public Shop(int id, String name, String password, String number, String adress, String email) {
         this.id = id;
@@ -21,6 +22,20 @@ public class Shop {
         this.number = number;
         this.adress = adress;
         this.email = email;
+    }
+
+    public Shop(int id, String name, String password, String number, String adress, String email, String newPassword) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.number = number;
+        this.adress = adress;
+        this.email = email;
+        this.newPassword = newPassword;
+    }
+
+    public Shop(){
+
     }
 
     public Shop(int id, String name, String password) {
@@ -74,5 +89,25 @@ public class Shop {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", number='" + number + '\'' +
+                ", adress='" + adress + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
