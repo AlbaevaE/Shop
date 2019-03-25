@@ -4,13 +4,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.*;
-@XmlRootElement(name="size")
+
+@XmlRootElement(name = "size")
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class Size {
 
-    int id;
-    String size;
+    private int id;
+    private String size;
 
     public Size() {
     }
