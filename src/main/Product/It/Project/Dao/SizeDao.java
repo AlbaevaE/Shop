@@ -1,12 +1,17 @@
 package It.Project.Dao;
 
-import java.sql.*;
+import It.Project.Model.Size;
 
-public class SizeDao {
-    private final String url = "jdbc:postgresql://localhost:5432/postgres";
-    private final String url1 = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
-    private final String user = "gruppa11";
-    private final String password = "1e23qwe34";
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SizeDao extends ProductDao {
+
+    private static final String url = "jdbc:postgresql://138.68.52.248:5432/gr11";
+    private static final String user = "gruppa11";
+    private static final String password = "1e23qwe34";
+
 
     public Connection connect() {
         Connection conn = null;
@@ -22,20 +27,113 @@ public class SizeDao {
         return conn;
     }
 
-    public int getSize(int id) {
-        String SQL = "Select * from sizes";
+    public List<Size> getAllSizes(){
+        String SQL = "select * from sizes";
+        List<Size>size = new ArrayList<>();
+        try(Connection conn = connect();
+            PreparedStatement stmt = conn.prepareStatement(SQL)){
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                size.add(new Size(rs.getInt("id"),rs.getString("name")));
+            }
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+            System.out.println("Error getAllSizes");
+        }
+        return size;
+    }
+
+    public Size getSize(int id) {
+        String SQL = "Select id, name from sizes where id = ?";
+        Size size = new Size();
+
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setInt(1, id);
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                size.setId(rs.getInt("id"));
+                size.setSize(rs.getString("name"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error getSize");
+        }
+        return size;
+    }
+
+//    public Size getSizesName(String sizes) {
+//        String SQL = "select name from sizes where id = ?";
+//        Size size = new Size();
+//        try (Connection conn = connect();
+//             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+//            stmt.setString(1, sizes);
+//            ResultSet rs = stmt.executeQuery(SQL);
+//            {
+//                while (rs.next()) {
+//                    String name = rs.getString("name");
+//                    size.setSize(name);
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        System.out.println(size);
+//        return size;
+//
+//    }
+
+    public Size updateSize(Size name) {
+        String SQL = "update sizes set name = ? where id = ?";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+            stmt.setString(1, name.getSize());
+            stmt.setInt(2, name.getId());
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery(SQL);
+            rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error updateSize");
+        }
+        return name;
+    }
+
+    public boolean deleteSize(int id) {
+        String SQL = "delete from sizes where id = ?";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)) {
             stmt.setInt(1, id);
-            stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(SQL);{
-                rs.next();
-            }
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error delete Size");
+            return false;
+        }
 
-        }
-        catch (SQLException ex){
-                 ex.getMessage();
-        }
-        return id;
+        return true;
+
     }
+
+    public boolean addSize(Size size) {
+        String SQL = "insert into sizes (name) values (?)";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)) {
+            stmt.setString(1, size.getSize());
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery(SQL);
+            rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error addSize");
+            return false;
+        }
+
+        return true;
+    }
+
 }
