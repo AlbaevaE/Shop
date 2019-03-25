@@ -5,6 +5,7 @@ import It.Project.Model.Shop;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 
 @Path("/shop")
@@ -21,14 +22,52 @@ public class ShopService {
     }
 
 
+    @GET
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public List<Shop> getAllShop(){
+        System.out.println("Getting all shops");
+        ShopDao shopDao = new ShopDao();
+        List<Shop> shops = shopDao.getAllShop();
+        return shops;
+    }
     @POST
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public Shop addShop(Shop shop){
+    public Shop addShop_JSON(Shop shop){
         System.out.println("Adding a shop");
         ShopDao shopDao = new ShopDao();
         shopDao.registerShop(shop);
         return shop;
     }
 
+    @PUT
+    @Path("/updateShop")
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public Shop updateShop_JSON(Shop shop){
+        System.out.println("Updating a shop");
+        ShopDao shopDao = new ShopDao();
+        shopDao.updateShop(shop);
+        return shop;
+    }
+
+    @PUT
+    @Path("/updatePasswords")
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public Shop updatePassword_JSON(Shop shop){
+        System.out.println("Updating password of Shop");
+        ShopDao shopDao = new ShopDao();
+        shopDao.updatePasswordOfShop(shop);
+        return shop;
+    }
+
+    @DELETE
+    @Path("/{deleteId}")
+    @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public boolean deleteShop_JSON(@HeaderParam("deleteId") Integer id){
+        System.out.println("Deleting a shop");
+        ShopDao shopDao  = new ShopDao();
+        if(shopDao.deleteShop(id)){
+            return true;
+        }else return false;
+    }
 
 }
