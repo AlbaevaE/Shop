@@ -17,7 +17,7 @@ public class OrderService {
     public Order getOrder_JSON(@PathParam("orderId") Integer orderId){
         System.out.println("Getting Type");
         OrdersDao ordersDao= new OrdersDao();
-        Order order = ordersDao.getOrger(orderId);
+        Order order = ordersDao.getOrder(orderId);
         return order;
     }
     @GET
@@ -47,7 +47,7 @@ public class OrderService {
     @DELETE
     @Path("{deleteId}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public boolean deleteType(@PathParam("deleteId") Integer deleteId){
+    public boolean deleteOrder(@PathParam("deleteId") Integer deleteId){
         System.out.printf("Deleting order");
         OrdersDao ordersDao= new OrdersDao();
         ordersDao.deleteOrders(deleteId);

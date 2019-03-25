@@ -8,16 +8,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdersDao {  private final String url = "jdbc:postgresql://localhost:5432/postgres";
-    private final String url1 = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
-    private final String user = "gruppa11";
-    private final String password = "1e23qwe34";
+public class OrdersDao {
+
+    private static final String url = "jdbc:postgresql://138.68.52.248:5432/gr11";
+    private static final String user = "gruppa11";
+    private static final String password = "1e23qwe34";
 
     public Connection connect() {
         Connection conn = null;
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(url, user, password);
+
             System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -44,7 +46,7 @@ public class OrdersDao {  private final String url = "jdbc:postgresql://localhos
         }
         return orders;
     }
-    public Order getOrger(int id) {
+    public Order getOrder(int id) {
         String SQL = "Select id , discount , client_id from orders where id = ?;";
 
        Order order= new Order();
