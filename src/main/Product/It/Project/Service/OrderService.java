@@ -1,9 +1,8 @@
 package It.Project.Service;
 
 import It.Project.Dao.OrdersDao;
-import It.Project.Dao.TypeDao;
 import It.Project.Model.Order;
-import It.Project.Model.Type;
+
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -40,7 +39,7 @@ public class OrderService {
     @PUT
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Order updateOrder_JSON(Order order){
-        System.out.printf("Updating order");
+        System.out.println("Updating order");
         OrdersDao ordersDao= new OrdersDao();
         return ordersDao.updateOrder(order);
     }
@@ -49,7 +48,7 @@ public class OrderService {
     @Path("{deleteId}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public boolean deleteOrder(@PathParam("deleteId") Integer deleteId){
-        System.out.printf("Deleting order");
+        System.out.println("Deleting order");
         OrdersDao ordersDao= new OrdersDao();
         ordersDao.deleteOrders(deleteId);
         return true;
