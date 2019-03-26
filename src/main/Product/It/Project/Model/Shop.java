@@ -44,4 +44,13 @@ public class Shop {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", contact=" + contact +
+                '}';
+    }
 }
