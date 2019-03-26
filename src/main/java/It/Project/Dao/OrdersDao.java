@@ -1,13 +1,15 @@
 package It.Project.Dao;
 
-
 import It.Project.Model.Gender;
+import It.Project.Model.Order;
+import It.Project.Model.Type;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenderDao {
+public class OrdersDao {
+
     private static final String url = "jdbc:postgresql://138.68.52.248:5432/gr11";
     private static final String user = "gruppa11";
     private static final String password = "1e23qwe34";
@@ -26,10 +28,9 @@ public class GenderDao {
         }
         return conn;
     }
-
-    public List<Gender> getAllGender(){
-        String SQL = "Select * from gender;";
-        List<Gender> genders = new ArrayList<>();
+    public List<Order> getAllOrders(){
+        String SQL = "Select * from orders;";
+        List<Order> orders = new ArrayList<>();
 
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)
@@ -37,19 +38,18 @@ public class GenderDao {
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                genders.add(new Gender(rs.getInt("id") , rs.getString("gender")));
+                orders.add(new Order(rs.getInt("id") , rs.getDouble("discount"), rs.getInt("client_id")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Error");
         }
-        return genders;
+        return orders;
     }
+    public Order getOrder(int id) {
+        String SQL = "Select id , discount , client_id from orders where id = ?;";
 
-    public Gender getGender(int id) {
-        String SQL = "Select id, gender from gender where id = ?;";
-        Gender gender = new Gender();
-
+       Order order= new Order();
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)
         ) {
@@ -57,24 +57,25 @@ public class GenderDao {
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                gender.setId(rs.getInt("id"));
-                gender.setGender(rs.getString("gender"));
-                System.out.println(gender);
+                order.setId(rs.getInt("id"));
+                order.setDiscount(rs.getDouble("discount"));
+                order.setClientId(rs.getInt("client_id"));
+                System.out.println(order);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Error");
         }
-        return gender;
+        return order;
     }
+    public Order addOrder(Order order){
+        String SQL = "Insert into orders(discount, client_id) values(?,?);";
 
-
-    public Gender addGender(Gender gender) {
-        String SQL = "Insert into gender(gender) values(?);";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)
         ) {
-            stmt.setString(1, gender.getGender());
+            stmt.setDouble(1, order.getDiscount());
+            stmt.setInt(2, order.getClientId());
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
             rs.next();
@@ -82,17 +83,16 @@ public class GenderDao {
             System.out.println(ex.getMessage());
             System.out.println("Error");
         }
-        return gender;
+        return order;
     }
+    public Order updateOrder(Order order){
+        String SQL = "Update orders set discount=?, client_id=?  where id = ?;";
 
-
-    public Gender updateGender(Gender gender) {
-        String SQL = "Update gender set gender=? where id = ?;";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)
         ) {
-            stmt.setString(1, gender.getGender());
-            stmt.setInt(2, gender.getId());
+            stmt.setDouble(1,order.getDiscount());
+            stmt.setInt(2, order.getClientId());
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
             rs.next();
@@ -100,12 +100,10 @@ public class GenderDao {
             System.out.println(ex.getMessage());
             System.out.println("Error");
         }
-        return gender;
+        return order;
     }
-
-
-    public boolean deleteGender(int id){
-        String SQL = "Delete from gender where id=?;";
+    public boolean deleteOrders(int id){
+        String SQL = "Delete from orders where id=?;";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)
         ) {
