@@ -15,19 +15,20 @@ public class OrderService {
     @Path("/{orderId}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Order getOrder_JSON(@PathParam("orderId") Integer orderId){
-        System.out.println("Getting Type");
+        System.out.println("Getting order");
         OrdersDao ordersDao= new OrdersDao();
         Order order = ordersDao.getOrder(orderId);
         return order;
     }
     @GET
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public List<Order> getAllorders_JSON(){
+    public List<Order> getAllOrders_JSON(){
         System.out.println("Getting all orders");
         OrdersDao ordersDao= new OrdersDao();
         List<Order> orders = ordersDao.getAllOrders();
         return orders;
     }
+
     @POST
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Order addOrder_JSON(Order order){
