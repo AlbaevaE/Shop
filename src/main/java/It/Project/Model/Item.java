@@ -10,20 +10,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Item {
     private int id;
     private String name;
-    private Type type;
-    private Brand brand;
-    private Color color;
-    private Size size;
-    private Season season;
+    private int type;
+    private int brand;
+    private int color;
+    private int size;
+    private int season;
     private int price;
-    private Shop shop;
-    private Gender gender;
+    private int shop;
+    private int gender;
+    private int rating;
 
     public Item() {
     }
 
-    public Item(int id, String name, Type type, Brand brand,
-                Color color, Size size, Season season, int price, Shop shop, Gender gender) {
+    public Item(int id, String name, int type, int brand,
+                int color, int size, int season, int price, int shop, int gender, int rating) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -34,7 +35,9 @@ public class Item {
         this.price = price;
         this.shop = shop;
         this.gender = gender;
+        this.rating = rating;
     }
+
 
     public int getId() {
         return id;
@@ -52,43 +55,43 @@ public class Item {
         this.name = name;
     }
 
-    public Type getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public Brand getBrand() {
+    public int getBrand() {
         return brand;
     }
 
-    public void setBrand(Brand brand) {
+    public void setBrand(int brand) {
         this.brand = brand;
     }
 
-    public Color getColor() {
+    public int getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(int color) {
         this.color = color;
     }
 
-    public Size getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
-    public Season getSeason() {
+    public int getSeason() {
         return season;
     }
 
-    public void setSeason(Season season) {
+    public void setSeason(int season) {
         this.season = season;
     }
 
@@ -100,19 +103,43 @@ public class Item {
         this.price = price;
     }
 
-    public Shop getShop() {
+    public int getShop() {
         return shop;
     }
 
-    public void setShop(Shop shop) {
+    public void setShop(int shop) {
         this.shop = shop;
     }
 
-    public Gender getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", brand=" + brand +
+                ", color=" + color +
+                ", size=" + size +
+                ", season=" + season +
+                ", price=" + price +
+                ", shop=" + shop +
+                ", gender=" + gender +
+                '}';
     }
 }
