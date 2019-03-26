@@ -40,7 +40,8 @@ public class ClientService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean deleteClient_JSON(@PathParam("clientId") Integer clientId) {
         ClientDao clientDao = new ClientDao();
-        clientDao.deleteClient(clientId);
-        return true;
+        if(clientDao.deleteClient(clientId)){
+            return true;
+        }else return false;
     }
 }

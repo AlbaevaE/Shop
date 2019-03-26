@@ -43,8 +43,9 @@ public class SizeService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean deleteSize_JSON(@PathParam("sizeId") Integer sizeId) {
         SizeDao sizeDao = new SizeDao();
-        sizeDao.deleteSize(sizeId);
-        return true;
+        if(sizeDao.deleteSize(sizeId)){
+            return true;
+        }else return false;
 
     }
 

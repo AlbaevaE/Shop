@@ -46,8 +46,9 @@ public class ColorService {
     public boolean deleteGender(@PathParam("deleteId") Integer id) {
         System.out.println("Deleting color");
         ColorDao colorDao = new ColorDao();
-        colorDao.deleteColor(id);
-        return true;
+        if(colorDao.deleteColor(id)){
+            return true;
+        }else return false;
     }
 
 

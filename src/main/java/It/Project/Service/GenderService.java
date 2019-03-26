@@ -44,8 +44,9 @@ public class GenderService {
     public boolean deleteGender(@PathParam("deleteId") Integer id){
         System.out.println("Deleting gender");
         GenderDao genderDao = new GenderDao();
-        genderDao.deleteGender(id);
-        return true;
+        if(genderDao.deleteGender(id)){
+            return true;
+        }else return false;
     }
 
     @GET

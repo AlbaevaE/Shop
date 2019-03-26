@@ -5,6 +5,7 @@ import It.Project.Dao.TypeDao;
 import It.Project.Model.Order;
 import It.Project.Model.Type;
 
+import It.Project.Model.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
