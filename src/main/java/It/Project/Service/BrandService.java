@@ -39,14 +39,9 @@ public class BrandService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean deleteBrand_JSON(@PathParam("brandId") Integer brandId) {
         BrandDao brandDao = new BrandDao();
-<<<<<<< Updated upstream
-        brandDao.deleteBrands(brandId);
-        return true;
-=======
         if(brandDao.deleteBrands(brandId)){
             return true;
         }else return false;
->>>>>>> Stashed changes
     }
 
     @PUT

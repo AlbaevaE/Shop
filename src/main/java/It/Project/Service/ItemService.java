@@ -14,7 +14,7 @@ public class ItemService {
     @GET
     @Path("/{itemId}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-    public Item getItem_JSON(int id){
+    public Item getItem_JSON(@PathParam("itemId") Integer id){
         System.out.println("Getting a item");
         ItemDao itemDao = new ItemDao();
         Item item = itemDao.getItem(id);
