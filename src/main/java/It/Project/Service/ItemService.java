@@ -17,8 +17,7 @@ public class ItemService {
     public Item getItem_JSON(@PathParam("itemId") Integer id){
         System.out.println("Getting a item");
         ItemDao itemDao = new ItemDao();
-        Item item = itemDao.getItem(id);
-        return item;
+        return itemDao.getItem(id);
     }
 
 
@@ -33,13 +32,11 @@ public class ItemService {
 
 
     @POST
-    @Path("/{itemId}")
     @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
     public Item addItem(Item item){
         System.out.println("Adding item");
         ItemDao itemDao = new ItemDao();
-        Item item1 = itemDao.addItem(item);
-        return item1;
+        return itemDao.addItem(item);
     }
 
     @PUT
@@ -47,8 +44,7 @@ public class ItemService {
     public Item updateItem(Item item){
         System.out.println("Updating item");
         ItemDao itemDao = new ItemDao();
-        Item item1 = itemDao.updateItem(item);
-        return item1;
+        return itemDao.updateItem(item);
     }
 
     @DELETE

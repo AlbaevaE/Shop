@@ -49,7 +49,7 @@ public class ItemDao {
                 item.setColor(rs.getInt("color_id"));
                 item.setSize(rs.getInt("size_id"));
                 item.setSeason(rs.getInt("season"));
-                item.setPrice(rs.getInt("prise"));
+                item.setPrice(rs.getInt("price"));
                 item.setShop(rs.getInt("shop_id"));
                 item.setGender(rs.getInt("gender_id"));
                 item.setRating(rs.getInt("rating_id"));
@@ -76,7 +76,7 @@ public class ItemDao {
                 items.add(new Item(rs.getInt("id"), rs.getString("name")
                         , rs.getInt("type_product_id"), rs.getInt("brand_id")
                         , rs.getInt("color_id"), rs.getInt("size_id")
-                        , rs.getInt("season"), rs.getInt("prise")
+                        , rs.getInt("season"), rs.getInt("price")
                         , rs.getInt("shop_id"), rs.getInt("gender_id")
                         , rs.getInt("rating_id")));
             }
@@ -105,7 +105,7 @@ public class ItemDao {
             stmt.setInt(9, item.getGender());
             stmt.setInt(10, item.getRating());
             stmt.execute();
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery(SQL);
             rs.next();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -115,12 +115,11 @@ public class ItemDao {
     }
 
     public Item updateItem(Item item) {
-        String SQL = "Update shop set name=?,type_product_id=?,brand_id=?,color_id=?," +
+        String SQL = "Update item set name=?,type_product_id=?,brand_id=?,color_id=?," +
                 "size_id=?,season=?,price=?,shop_id=?,gender_id=?,rating_id=? where id=?";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(SQL)
         ) {
-            stmt.setInt(1, item.getId());
             stmt.setString(2, item.getName());
             stmt.setInt(3, item.getType());
             stmt.setInt(4, item.getBrand());
@@ -131,6 +130,7 @@ public class ItemDao {
             stmt.setInt(9, item.getShop());
             stmt.setInt(10, item.getGender());
             stmt.setInt(11, item.getRating());
+            stmt.setInt(1, item.getId());
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
             rs.next();
