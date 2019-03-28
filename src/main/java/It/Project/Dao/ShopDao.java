@@ -1,4 +1,6 @@
+
 package It.Project.Dao;
+
 
 import It.Project.Model.Shop;
 
@@ -6,9 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopDao extends ProductDao {
-    private final String url = "jdbc:postgresql://localhost:5432/postgres";
-    private final String url1 = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
+public class ShopDao {
+    private final String url = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
     private final String user = "gruppa11";
     private final String password = "1e23qwe34";
 
@@ -26,83 +27,164 @@ public class ShopDao extends ProductDao {
         return conn;
     }
 
-    public String getShopInfo(String info) {
-        String SQL = "Select id from shop";
-        String v = "";
+
+    public Shop getShop(int id) {
+        String SQL = "Select id,name,passwords,phone_number,email,address from shop where id = ?;";
+        Shop shop = new Shop();
+
         try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setString(1, info);
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setInt(1, id);
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                shop.setId(rs.getInt("id"));
+                shop.setName(rs.getString("name"));
+                shop.setPassword(rs.getString("password"));
+                shop.setEmail(rs.getString("email"));
+                shop.setAdress(rs.getString("address"));
+                System.out.println(shop);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
+        }
+        return shop;
+
+    }
+
+    public boolean registerShop(Shop reg) {
+        String SQL = "insert into shop (name, passwords, phone_number, email, address) values (?,?,?,?,?);";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, reg.getName());
+            stmt.setString(2, reg.getPassword());
+            stmt.setString(3, reg.getNumber());
+            stmt.setString(4, reg.getEmail());
+            stmt.setString(5, reg.getAdress());
             stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(SQL);
-            {
-                rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean authorizeShop(Shop reg) {
+        String SQL = "select id from shop where login = ?";
+        int id = -1;
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, reg.getName());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next())
+                id = rs.getInt("id");
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        if (id == -1) {
+            return false;
+        }
+
+        return checkLoginAndPassword(reg, id);
+    }
+
+    public boolean checkLoginAndPassword(Shop reg, int shopId) {
+        String SQL = "select count(*) as cnt from shop where login = ? and passwords = ?";
+        int count = 0;
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, reg.getName());
+            stmt.setString(2, reg.getPassword());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("cnt");
             }
 
         } catch (SQLException ex) {
-            ex.getMessage();
+            System.out.println(ex.getMessage());
+            // Write Fail to Log
+            return false;
         }
-        return info;
+        return true;
     }
 
-    public String getAllShop(String info) {
-        String SQL = "Select * from shop";
+    public List<Shop> getAllShop() {
+        String SQL = "Select * from shop;";
         List<Shop> shops = new ArrayList<>();
         try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setString(1, info);
-            stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(SQL);
-            while(rs.next()){
-              //  shops.add(new Shop(rs.getInt("id"),rs.getString("name"),))
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                shops.add(new Shop(rs.getInt("id"), rs.getString("login"), rs.getString("passwords")));
             }
-
         } catch (SQLException ex) {
-            ex.getMessage();
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
         }
-        return info;
+        return shops;
     }
 
-    public String addShop(Shop shop) {
-        String SQL = "insert into shop (id,name,contact) values (?,?,?)";
-        String s = "";
+    public Shop updateShop(Shop shop) {
+        String SQL = "Update shop name = ?,phone_number=?,email=?,address=? where id = ?;";
         try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setInt(1, shop.id);
-            stmt.setString(2, shop.name);
-            stmt.setString(3, String.valueOf(shop.contact));
-            stmt.executeQuery();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, shop.getName());
+            stmt.setInt(2, shop.getId());
+            stmt.setString(3, shop.getNumber());
+            stmt.setString(4, shop.getEmail());
+            stmt.setString(5, shop.getAdress());
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
         } catch (SQLException ex) {
-            ex.getMessage();
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
         }
-        return s;
+        return shop;
     }
 
-    public String updateShop(Shop shop) {
-        String SQL = "Update shop set name = ? where id = ?";
-        String s = "";
+    public Shop updatePasswordOfShop(Shop shop) {
+        String SQL = "Update shop set passwords=? where id=? and passwords=?;";
         try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(SQL)) {
-            stmt.setInt(1, shop.id);
-            stmt.setString(2, shop.name);
-            stmt.executeUpdate();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setString(1, shop.getNewPassword());
+            stmt.setInt(2, shop.getId());
+            stmt.setString(3, shop.getPassword());
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
         } catch (SQLException ex) {
-            ex.getMessage();
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
         }
-        return s;
-
+        return shop;
     }
 
-    public String deleteShop(Shop shop){
-        String SQL = "Delete from shop where id = ?";
-        String s = "";
-        try(Connection conn = connect();
-            PreparedStatement stmt = conn.prepareStatement(SQL)){
-            stmt.setInt(1,shop.id);
-            stmt.executeUpdate();
+    public boolean deleteShop(int id) {
+        String SQL = "Delete from shop where id=?;";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(SQL)
+        ) {
+            stmt.setInt(1, id);
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error");
+            return false;
         }
-        catch (SQLException ex){
-            ex.getMessage();
-        }
-        return s;
+        return true;
     }
 }

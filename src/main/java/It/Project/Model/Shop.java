@@ -6,19 +6,52 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="shop")
 @XmlAccessorType(XmlAccessType.FIELD)
-
 public class Shop {
-    public int id;
-    public String name;
-    public Contact contact;
+    int id;
+    String name;
+    String password;
+    String number;
+    String adress;
+    String email;
+    String newPassword;
 
-    public Shop() {
+    public Shop(){
+
     }
 
-    public Shop(int id, String name, Contact contact) {
+    public Shop(int id, String name, String password,
+
+                String number, String adress, String email, String newPassword) {
         this.id = id;
         this.name = name;
-        this.contact = contact;
+        this.password = password;
+        this.number = number;
+        this.adress = adress;
+        this.email = email;
+        this.newPassword = newPassword;
+    }
+
+    public Shop(int id, String name, String password, String number, String adress, String email) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.number = number;
+        this.adress = adress;
+        this.email = email;
+    }
+
+    public Shop(int id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public int getId() {
@@ -37,20 +70,35 @@ public class Shop {
         this.name = name;
     }
 
-    public Contact getContact() {
-        return contact;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Shop{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", contact=" + contact +
-                '}';
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
