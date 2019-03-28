@@ -9,15 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopDao {
-    private final String url = "jdbc:postgresql:http://138.68.52.248:5432/gr11";
-    private final String user = "gruppa11";
-    private final String password = "1e23qwe34";
+    private static final String url = "jdbc:postgresql://138.68.52.248:5432/gr11";
+    private static final String user = "gruppa11";
+    private static final String password = "1e23qwe34";
 
     public Connection connect() {
         Connection conn = null;
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(url, user, password);
+
             System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -38,7 +39,7 @@ public class ShopDao {
             stmt.setInt(1, id);
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 shop.setId(rs.getInt("id"));
                 shop.setName(rs.getString("name"));
                 shop.setPassword(rs.getString("password"));
@@ -124,7 +125,8 @@ public class ShopDao {
             stmt.execute();
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                shops.add(new Shop(rs.getInt("id"), rs.getString("login"), rs.getString("passwords")));
+                shops.add(new Shop(rs.getInt("id"), rs.getString("login"), rs.getString("passwords"),
+                        rs.getString("phone_number") , rs.getString("email"),rs.getString("address")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

@@ -10,10 +10,11 @@ import java.util.List;
 
 @Path("/shop")
 public class ShopService {
+
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<Shop> getShop_JSON() {
-        System.out.println("getting shop");
+    public List<Shop> getAllShop_JSON() {
+        System.out.println("getting shops");
         ShopDao shopDao = new ShopDao();
         List<Shop> shops = shopDao.getAllShop();
         return shops;
@@ -24,7 +25,8 @@ public class ShopService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Shop getShop(@PathParam("shopId") Integer shopId) {
         ShopDao shopDao = new ShopDao();
-        return shopDao.getShop(shopId);
+        Shop shop = shopDao.getShop(shopId);
+        return shop;
     }
 
     @POST
