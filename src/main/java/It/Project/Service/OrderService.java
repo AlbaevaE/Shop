@@ -50,8 +50,9 @@ public class OrderService {
     public boolean deleteOrder(@PathParam("deleteId") Integer deleteId){
         System.out.println("Deleting order");
         OrdersDao ordersDao= new OrdersDao();
-        ordersDao.deleteOrders(deleteId);
-        return true;
+        if(ordersDao.deleteOrders(deleteId)){
+            return true;
+        }else return false;
     }
 
 }

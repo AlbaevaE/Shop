@@ -52,9 +52,11 @@ public class ShopService {
     @DELETE
     @Path("/{shopId}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void deleteShop(@PathParam("shopId")Integer shopId){
+    public boolean deleteShop(@PathParam("shopId")Integer shopId){
         ShopDao shopDao = new ShopDao();
-        shopDao.deleteShop(shopId);
+        if(shopDao.deleteShop(shopId)){
+            return true;
+        }else return false;
     }
 
 }

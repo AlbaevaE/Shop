@@ -7,13 +7,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="shop")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Shop {
-    int id;
-    String name;
-    String password;
-    String number;
-    String adress;
-    String email;
-    String newPassword;
+    private int id;
+    private String name;
+    private String password;
+    private String number;
+    private String adress;
+    private String email;
+    private String newPassword;
 
     public Shop(){
 
