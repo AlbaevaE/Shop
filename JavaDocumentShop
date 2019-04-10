@@ -1,0 +1,191 @@
+ For Size:
+Create - POST : http://localhost:8080/Shop/rest/size/
+
+  {
+    "name":"5xl"
+  }
+
+ Read - GET : http://localhost:8080/Shop/rest/size/3
+
+ Update - PUT : http://localhost:8080/Shop/rest/size/7
+
+  {
+    "id": "7",
+    "name":"10xl"
+  }
+
+
+ Delete - DELETE : http://localhost:8080/Shop/rest/size/7
+
+ For Season:
+
+ Create - POST: http://localhost:8080/Shop/rest/season/
+  {
+   "season":"winter"
+  }
+
+ Read - GET: http://localhost:8080/Shop/rest/season/
+
+ Update - PUT: http://localhost:8080/Shop/rest/season/7
+ {
+   "id":"7",
+   "season":"summer"
+ }
+
+ Delete - DELETE: http://localhost:8080/Shop/rest/season/7
+
+ For Client:
+
+ Create - POST: http://localhost:8080/Shop/rest/client/
+ 
+  {
+    "name":"Aigerim",
+    "e_mail":"@aigerim,
+    "phone":"0777543245"
+  }
+
+ Read - GET:http://localhost:8080/Shop/rest/client/4
+
+ Update - PUT: http://localhost:8080/Shop/rest/client/4
+ {
+   "id": "4",
+   "name": "Aselia",
+   "e_mail": "@aselia",
+   "phone": "0774568734"
+ }
+
+ Delete - DELETE:http://localhost:8080/Shop/rest/client/4
+
+ For Color:
+ 
+ Create - POST:http://localhost:8080/Shop/rest/color/
+ {
+   "color": "серо-буро-малиновый"
+ }
+ 
+ Read - GET: http://localhost:8080/Shop/rest/color/3
+
+ Update - PUT: http://localhost:8080/Shop/rest/color/1
+ {
+   "id": "1",
+   "color":"сине-белый"
+ }
+
+ Delete - DELETE:http://localhost:8080/Shop/rest/color/1
+
+ For Brand:
+
+ Create - POST:http://localhost:8080/Shop/rest/brand/
+ {
+   "name": "Kepka"
+ }
+ 
+ Read - GET:http://localhost:8080/Shop/rest/brand/
+
+ Update - PUT:http://localhost:8080/Shop/rest/brand/1
+ {
+   "id":"1",
+   "name": "Ananas"
+ }
+ 
+ Delete - DELETE: http://localhost:8080/Shop/rest/brand/1
+
+
+ For Gender:
+
+ Create - POST:http://localhost:8080/Shop/rest/gender/
+ {
+  "gender":"girl"
+ }
+ 
+ Read - GET:http://localhost:8080/Shop/rest/gender/1
+
+ Update - PUT:http://localhost:8080/Shop/rest/gender/1
+ 
+ {
+   "id":"1",
+   "gender":"old women"
+ }
+ 
+ Delete - DELETE:http://localhost:8080/Shop/rest/gender/1
+
+
+ For Shop:
+
+ Create - POST:http://localhost:8080/Shop/rest/shop/
+ {
+   "name":"Panama",
+   "password":"12345",
+   "phon_number":"0987456",
+   "email":"@asdfds",
+   "address":"Frunzenskaia 16"
+ }
+ 
+ Read - GET:http://localhost:8080/Shop/rest/shop/
+ 
+ Update - PUT:http://localhost:8080/Shop/rest/shop/1
+ {
+   "id":"1",
+   "name":"Panama",
+   "password":"12345",
+   "phon_number":"0987456",
+   "email":"@asdfds",
+   "address":"Frunzenskaia 16"
+ }
+ 
+ Delete - DELETE:http://localhost:8080/Shop/rest/shop/1
+
+
+ For Type:
+
+ Create - POST:http://localhost:8080/Shop/rest/type/
+ {
+  "name":"перчатки",
+  "parent_type_id":"12"
+ }
+ 
+ Read - GET:http://localhost:8080/Shop/rest/type/
+
+ Update - PUT:http://localhost:8080/Shop/rest/type/1
+ {
+   "id":"1",
+   "name":"перчатки",
+   "parent_type_id":"12"
+  }
+
+ Delete - DELETE:http://localhost:8080/Shop/rest/type/1
+
+ For Item:
+
+ Create - POST:http://localhost:8080/Shop/rest/item/
+ {
+   "name":"футболка",
+   "type_product_id":"футолка",
+   "brand_id":"1",
+   "color_id":"2",
+   "size_id":"2",
+   "season":"3",
+   "price":"750",
+   "shop_id":"1",
+   "gender_id":"1"
+}
+
+ Read - GET:http://localhost:8080/Shop/rest/item/
+
+ Update - PUT:http://localhost:8080/Shop/rest/item/1
+ {
+  "id":"1",
+   "name":"футболка",
+   "type_product_id":"футолка",
+   "brand_id":"1",
+   "color_id":"2",
+   "size_id":"2",
+   "season":"3",
+   "price":"750",
+   "shop_id":"1",
+   "gender_id":"1"
+ }
+
+ Delete - DELETE: http://localhost:8080/Shop/rest/item/1
+
+
